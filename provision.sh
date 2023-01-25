@@ -1,9 +1,6 @@
 #!/bin/bash
 # Script for provisioning microshift on RHEL 8
 
-# Rename vg
-vgrename rhel_rhel8 rhel
-
 # Import Red Hat public keys to allow RPM GPG check (not necessary if a system is registered)
 if ! subscription-manager status >& /dev/null ; then
    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-*
@@ -39,6 +36,8 @@ firewall-offline-cmd --zone=public --add-port=443/tcp
 firewall-offline-cmd --zone=public --add-port=10250/tcp
 firewall-offline-cmd --zone=public --add-port=10251/tcp
 firewall-offline-cmd --change-zone=eth0 --zone=public
+
+firewall-cmd --reload
 
 # Copy pull secret
 cp /vagrant_data/.pull-secret.json /etc/crio/openshift-pull-secret
