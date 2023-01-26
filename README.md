@@ -1,6 +1,6 @@
-# Microshift Starter VM
+# MicroShift Starter VM
 
-If you are interested in trying [microshift](https://microshift.io/), you can use this Vagrant VM to get started. This repo provides a template Vagrantfile to create a microshift virtual machine using VirtualBox as the hypervisor. After setup is complete you will havea single microshift VM running on your host.
+If you are interested in trying Red Hat Device Edge, based on the open source project [MicroShift](https://microshift.io/), you can use this Vagrant VM to get started. This repo provides a template Vagrantfile to create a MicroShift virtual machine using VirtualBox as the hypervisor. After setup is complete you will havea single MicroShift VM running on your host.
 
 ### Prerequisites
 
