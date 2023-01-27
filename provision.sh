@@ -42,9 +42,19 @@ firewall-cmd --reload
 # Copy pull secret
 cp /vagrant_data/.pull-secret.json /etc/crio/openshift-pull-secret
 
+# Configure storage
+mkdir -p /etc/microshift
+cat <<'EOF' >>/etc/microshift/lvmd.yaml
+socket-name: /run/lvmd/lvmd.socket
+device-classes:
+- default: true
+  name: default
+  volume-group: rhel_rhel8
+EOF
+
 # Start microshift
 systemctl enable --now microshift.service
 
-# Install the kubeconfig for the user
+# Install the kubeconfig for the Vagrant user
 su - vagrant -c "mkdir ~/.kube"
 install -C -o vagrant -g vagrant /var/lib/microshift/resources/kubeadmin/kubeconfig /home/vagrant/.kube/config
