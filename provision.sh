@@ -6,14 +6,9 @@ if ! subscription-manager status >& /dev/null ; then
    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-*
 fi
 
-tee /etc/yum.repos.d/rhocp-4.12-el8-beta-$(uname -i)-rpms.repo >/dev/null <<EOF
-[rhocp-4.12-el8-beta-$(uname -i)-rpms]
-name=Beta rhocp-4.12 RPMs for RHEL8
-baseurl=https://mirror.openshift.com/pub/openshift-v4/\$basearch/dependencies/rpms/4.12-el8-beta/
-enabled=1
-gpgcheck=1
-skip_if_unavailable=0
-EOF
+subscription-manager repos \
+    --enable rhocp-4.12-for-rhel-8-$(uname -i)-rpms \
+    --enable fast-datapath-for-rhel-8-$(uname -i)-rpms
 
 # Install MicroShift testing package
 dnf copr enable -y @redhat-et/microshift-testing
@@ -40,7 +35,9 @@ firewall-offline-cmd --change-zone=eth0 --zone=public
 firewall-cmd --reload
 
 # Copy pull secret
+mkdir -p /etc/crio
 cp /vagrant_data/.pull-secret.json /etc/crio/openshift-pull-secret
+chmod 600 /etc/crio/openshift-pull-secret
 
 # Configure storage
 mkdir -p /etc/microshift
