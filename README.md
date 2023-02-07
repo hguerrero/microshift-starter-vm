@@ -74,18 +74,6 @@ To avoid hardcode the username and password in the Vagrantfile, which isn't best
     openshift-storage          pod/topolvm-node-hb5mh                    4/4     Running   0          80s
     ```
 
-### Deploy the OKD web console
-
-Now that we have a running instance of microshift, we can complement it with a nice console. We will de ploy the OKD console in the cluster. 
-
-For that you will need to run the following command from within the same directory:
-
-```sh
-oc apply -f k8s/
-```
-
-This will create all the required resources to enable the console. It will be available at http://console.127.0.0.1.nip.io and should be accessible from your host machine.
-
 ### Access the cluster from your host machine
 
 If you want to avoid the step to ssh into the VM, you can copy the information regarding the kubeconfig into machine and run any kubectl or oc command from there.
@@ -101,3 +89,15 @@ You will need to open the file and replace the kube api url with `localhost` ins
 
 With that, you should be able to access your cluster from the host machine.
 
+
+### Deploy the OKD web console
+
+Now that we have a running instance of microshift, we can complement it with a nice console. We will de ploy the OKD console in the cluster. 
+
+For that you will need to run the following command from within the same directory:
+
+```sh
+oc apply -f k8s/
+```
+
+This will create all the required resources to enable the console. It will be available at http://console.127.0.0.1.nip.io and should be accessible from your host machine.
